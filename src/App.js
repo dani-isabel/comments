@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Comment from './components/Comment';
+import AddComment from './components/AddComment';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+  }
+  constructor(props) {
+    super(props)
+    this.state = {comments: []}
+  }
+
+componentDidMount() {
+  fetch('https://jsonplaceholder.typicode.com/comments?_limit=10')
+    .then(response => response.json())
+    .then(result => this.setState({comments: result}))
+    .then(json => console.log('componentDidMount',json))
+}
+
+delComment = (id) => {
+  console.log('id',id)
+  fetch('https://jsonplaceholder.typicode.com/comments/1', {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(result => this.setState({comments: [...this.state.comments.filter(
+      item => item.id !== id)]}))
+}
+
+addBody = (body) => {
+  console.log('hola',body);
+  const newComment = {
+    id: 200,
+    email: "Eliseo@gardner.biz",
+    body: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
+  }
+
+  this.setState({
+    comments: [...this.state.comments,newComment]
+  });
+
+}
+  render() {
+    return (
+      <div className = 'App'>
+        <header>
+          <h1>Comments</h1>
+          <AddComment addBody = {this.addBody}/>
+        </header>
+          <Comment comments = {this.state.comments} delComment = {this.delComment}/>
+      </div>
+    );
+  }
 }
 
 export default App;
