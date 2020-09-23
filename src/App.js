@@ -28,7 +28,6 @@ delComment = (id) => {
 }
 
 addBody = (body) => {
-  console.log('hola',body)
   fetch('https://jsonplaceholder.typicode.com/comments', {
     method: 'POST',
     body: JSON.stringify({
@@ -44,7 +43,7 @@ addBody = (body) => {
   .then(result => this.setState({comments: [...this.state.comments,result]}))
   .catch(e => console.log('erros',e))
 }
-// this.setState({comments: [...this.state.comments.body]})
+
   render() {
     return (
       <div className = 'App'>

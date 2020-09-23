@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 
 export default class AddComponent extends Component {
+    getStyleTextInput = () => {
+        return {
+            width: '30%',
+            borderRadius: '10px',
+            height: '25px',
+            textAlign: 'center'
+        }
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +25,8 @@ export default class AddComponent extends Component {
     render() {
         return (
             <form onSubmit= {this.handleSubmit}>
-                <input type= 'text' name= 'body' placeholder= 'Add comment' onChange= {this.handleChange}></input>
-                <input type="Submit" value="Submit"/>
+                <input style = {this.getStyleTextInput()} type= 'text' name= 'body' placeholder= 'Add comment' onChange= {this.handleChange}></input>
+                <input className= "submit" type="Submit" value="Submit"/>
             </form>
         )
     }
