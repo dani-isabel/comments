@@ -12,13 +12,13 @@ export default class AddComponent extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.addBody(this.state.body);
-        this.setState({body:''});
+        this.setState({body:''})
     };
     render() {
         return (
             <form onSubmit= {this.handleSubmit}>
                 <input type= 'text' name= 'body' placeholder= 'Add comment' onChange= {this.handleChange}></input>
-                <input type="button" value="Submit"/>
+                <input type="Submit" value="Submit"/>
             </form>
         )
     }

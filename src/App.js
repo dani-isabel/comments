@@ -12,10 +12,9 @@ class App extends Component {
   }
 
 componentDidMount() {
-  fetch('https://jsonplaceholder.typicode.com/comments?_limit=10')
+  fetch('https://jsonplaceholder.typicode.com/comments?_limit=5')
     .then(response => response.json())
     .then(result => this.setState({comments: result}))
-    .then(json => console.log('componentDidMount',json))
 }
 
 delComment = (id) => {
@@ -29,18 +28,23 @@ delComment = (id) => {
 }
 
 addBody = (body) => {
-  console.log('hola',body);
-  const newComment = {
-    id: 200,
-    email: "Eliseo@gardner.biz",
-    body: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
-  }
-
-  this.setState({
-    comments: [...this.state.comments,newComment]
-  });
-
+  console.log('hola',body)
+  fetch('https://jsonplaceholder.typicode.com/comments', {
+    method: 'POST',
+    body: JSON.stringify({
+      title: body,
+      body: body,
+      userId: 1
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+  .then(response => response.json())
+  .then(result => this.setState({comments: [...this.state.comments,result]}))
+  .catch(e => console.log('erros',e))
 }
+// this.setState({comments: [...this.state.comments.body]})
   render() {
     return (
       <div className = 'App'>
